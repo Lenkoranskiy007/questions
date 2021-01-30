@@ -14,7 +14,9 @@ export  const ActiveQuiz = (props) => {
           </p>
           <AnswerList
               onAnswerClick={props.onAnswerClick}
+              state={props.state}
               answer={props.answers}/>
+
         </div>
     )
 }

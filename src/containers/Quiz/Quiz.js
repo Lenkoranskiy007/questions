@@ -6,10 +6,11 @@ class Quiz extends React.Component {
 
     state = {
         activeQuestions: 0,
+        answerState: null,
         quiz: [{
             questions: "Какого цвета небо?",
-            id: 1,
-            rightAnswerId: 1,
+            id: 2,
+            rightAnswerId: 2,
             answer: [
                 {text: "Черный", id:1},
                 {text: "Синий", id: 2},
@@ -20,7 +21,7 @@ class Quiz extends React.Component {
             {
                 questions: "В каком году был основан Санкт-Петербург" ,
                 id: 2,
-                rightAnswerId: 2,
+                rightAnswerId: 3,
                 answer: [
                     {text: 1701, id:1},
                     {text: 1702, id: 2},
@@ -35,10 +36,40 @@ class Quiz extends React.Component {
     }
 
     onAnswerClick = (answerId) => {
-       this.setState({
-          activeQuestions: this.state.activeQuestions + 1
-       })
+        const question = this.state.quiz[this.state.activeQuestions]
+
+        if (question.rightAnswerId === answerId) {
+            this.setState({
+                answerState: {[answerId]: 'success'}
+            })
+            const timeout = window.setTimeout(() => {
+               if(this.isQuizFinished()) {
+                   console.log('finished')
+               } else {
+                   this.setState({
+                       activeQuestions: this.state.activeQuestions + 1,
+                       answerState: null
+                   })
+               }
+                window.clearTimeout(timeout)
+            }, 1000)
+
+
+        } else {
+            this.setState({
+                answerState: {[answerId]: 'error'}
+            })
+        }
+
     }
+
+
+
+    isQuizFinished () {
+        return this.state.activeQuestions + 1 === this.state.quiz.length
+    }
+
+
 
     render(){
         return(
@@ -52,6 +83,7 @@ class Quiz extends React.Component {
                       onAnswerClick={this.onAnswerClick}
                       quizLength={this.state.quiz.length}
                       answerNumber={this.state.activeQuestions }
+                      state={this.state.answerState}
 
 
                     />

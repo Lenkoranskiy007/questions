@@ -6,9 +6,11 @@ import AnswerItem from './AnswerItem/AnswerItem'
        <div>
            {props.answer.map((answer, index) => {
                return <AnswerItem
+
                    onAnswerClick={props.onAnswerClick}
                    key={index}
                    answer={answer}
+                   state={props.state? [props.state[answer.id]]: null}
                />
            })}
        </div>
