@@ -34,6 +34,7 @@ export const FinishedQuiz = (props) => {
             <p>Правильно {successCount} из {props.quiz.length}</p>
             <div>
                 <Button onClick={props.retryHandler} type='primary'>Повторить</Button>
+                <Button type='success '>Перейти в список тестов</Button>
             </div>
         </div>
     )
