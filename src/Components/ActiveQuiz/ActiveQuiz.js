@@ -7,8 +7,8 @@ export  const ActiveQuiz = (props) => {
         <div className={classes.ActiveQuiz}>
           <p className={classes.Question}>
               <span>
-                  <strong>2.</strong>
-                  {props.questions}
+
+                  <strong>{props.questions}</strong>
               </span>
               <small>{props.answerNumber} из {props.quizLength}</small>
           </p>
