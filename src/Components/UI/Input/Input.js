@@ -2,8 +2,8 @@ import React from 'react'
 import classes from './Input.module.css'
 
 const isInvalid = ({valid, touched, shouldValidate}) => {
-    return !valid && touched && shouldValidate
-}
+    return !valid && shouldValidate && touched
+ }
 
 const Input = (props) => {
     const inputType = props.type || "text"
@@ -15,7 +15,7 @@ const Input = (props) => {
     }
 
     return (
-        <div className={cls.join(" ")}>
+        <div className={cls.join(' ')}>
             <label htmlFor={htmlFor}>{props.label}</label>
             <input type={inputType}
                    id={htmlFor}
