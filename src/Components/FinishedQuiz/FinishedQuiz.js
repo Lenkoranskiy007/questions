@@ -36,7 +36,7 @@ export const FinishedQuiz = (props) => {
             <div>
                 <Button onClick={props.retryHandler} type='primary'>Повторить</Button>
                 <Button type='success '>
-                <Link to='/'>
+                <Link to='/ '>
                     Перейти в список тестов
                 </Link>
                 </Button>
