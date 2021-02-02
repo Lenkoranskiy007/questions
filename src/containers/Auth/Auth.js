@@ -11,6 +11,7 @@ function validateEmail(email) {
  class Auth extends React.Component {
 
      state = {
+         isFormValid: false,
          formControls: {
              email: {
                  value: '',
@@ -78,8 +79,13 @@ function validateEmail(email) {
          control.touched = true
          control.valid = this.validateControl(control.value, control.validation)
          copyFormControl[controlName] = control
+         let isFormValid = true
+         Object.keys(copyFormControl).forEach(name => {
+             isFormValid = copyFormControl[name].valid && isFormValid
+         })
+
          this.setState({
-             copyFormControl
+             copyFormControl, isFormValid
          })
 
 
@@ -114,11 +120,13 @@ function validateEmail(email) {
                     <Button
                         type="success"
                         onClick={this.loginHandler}
+                        disabled={!this.state.isFormValid}
                     >Войти
                     </Button>
                     <Button
                         type="primary"
                         onClick={this.registerHandler}
+                        disabled={!this.state.isFormValid}
                     >Зарегистрироваться
                     </Button>
                 </form>
