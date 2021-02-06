@@ -5,6 +5,8 @@ import {createControl} from '../../Form/formFramework'
 import Input from "../../Components/UI/Input/Input";
 import Auxillary from "../../Hoc/Auxillary";
 import Select from "../../Components/UI/Select/Select";
+import {validate} from "../../Form/formFramework";
+import {validateForm} from "../../Form/formFramework";
 
 function createOptionControl(number) {
     return createControl({
@@ -32,6 +34,7 @@ class QuizCreator extends React.Component {
 
     state = {
         quiz: [],
+        isFormValid: false,
         rightAnswerId: 1,
         formControls: createFormControls()
     }
@@ -40,8 +43,8 @@ class QuizCreator extends React.Component {
         event.preventDefault()
     }
 
-    addQuestionHandler = () => {
-
+    addQuestionHandler = (event) => {
+     event.preventDefault()
     }
 
     createQuizHAndler = () => {
@@ -49,6 +52,17 @@ class QuizCreator extends React.Component {
     }
 
     changeHandler = (value, controlName) => {
+        const copyFormControl  =  this.state.formControls
+        const  control  = { ...copyFormControl[controlName] }
+
+        control.touched = true
+        control.value = value
+        control.valid = validate(control.value, control.validation)
+        copyFormControl[controlName] = control
+        this.setState({
+            copyFormControl,
+            isFormValid: validateForm(copyFormControl)
+        })
 
     }
 
@@ -102,12 +116,14 @@ class QuizCreator extends React.Component {
                        <Button
                           type='primary'
                           onClick={this.addQuestionHandler}
+                          disabled={!this.state.isFormValid}
                         >
                            Добавить вопрос
                        </Button>
                        <Button
                           type='success'
                           onClick={this.createQuizHAndler}
+                          disabled={this.state.quiz.length === 0}
                         >
                            Создать тест
                        </Button>
